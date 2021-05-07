@@ -30,24 +30,24 @@ function coinChange(coins, amount) {
      * @returns number
      */
     function dp(n) {
+        // 查备忘录
+        if (n in memo) return memo[n];
+
         // base case:
         if (n === 0) return 0;
         if (n < 0) return -1;
         let res = Infinity;
         for (const coin of coins) {
-            let subProblem;
-            // 备忘录
-            if (memo[n - coin] === undefined) {
-                memo[n - coin] = dp(n - coin);
-            }
-            subProblem = memo[n - coin];
+            const subProblem = dp(n - coin);
             if (subProblem === -1) {
                 continue;
             }
             res = Math.min(res, 1 + subProblem);
         }
 
-        return Number.isFinite(res) ? res : -1;
+        // 记入备忘录
+        memo[n] = Number.isFinite(res) ? res : -1;
+        return memo[n];
     }
 
     return dp(amount);
