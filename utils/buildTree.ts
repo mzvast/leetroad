@@ -1,4 +1,4 @@
-import {TreeNode} from './TreeNode.js';
+import {TreeNode} from './TreeNode';
 
 // 从层序遍历构建二叉树
 
