@@ -28,35 +28,31 @@
 // 链接：https://leetcode-cn.com/problems/path-sum-iii
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-//  https://www.youtube.com/watch?v=EE8S0pAi_dM
-//  https://www.bilibili.com/video/BV1sE411H78f?from=search&seid=18012127700624887823
-// https://www.youtube.com/watch?v=NTyOEYYyv-o
 import {buildTree} from '../../utils/buildTree';
 
 /**
  * @param {TreeNode} root
- * @param {number} targetSum
+ * @param {number} k
  * @return {number}
  */
-var pathSum = function (root, targetSum) {
-    if (!root) return 0;
+var pathSum = function (root, k) {
+    let ans = 0;
+    let sumCountMap = new Map([[0, 1]]); // sum -> count
+    helper(root, 0, k);
+    return ans;
 
-    return (
-        numberOfPaths(root, targetSum) +
-        pathSum(root.left, targetSum) +
-        pathSum(root.right, targetSum)
-    );
+    function helper(root, curSum, k) {
+        if (!root) return;
+
+        curSum += root.val;
+        ans += sumCountMap.get(curSum - k) || 0;
+
+        sumCountMap.set(curSum, (sumCountMap.get(curSum) || 0) + 1);
+        helper(root.left, curSum, k);
+        helper(root.right, curSum, k);
+        sumCountMap.set(curSum, (sumCountMap.get(curSum) || 0) - 1);
+    }
 };
-
-function numberOfPaths(root, left) {
-    if (!root) return 0;
-    left -= root.val;
-    return (
-        (left === 0 ? 1 : 0) +
-        numberOfPaths(root.left, left) +
-        numberOfPaths(root.right, left)
-    );
-}
 
 const root = buildTree([10, 5, -3, 3, 2, null, 11, 3, -2, null, 1]);
 
