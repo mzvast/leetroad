@@ -15,13 +15,13 @@ var preorderTraversal = function (root) {
     let result = [];
     let stack = [];
     let cur = root;
-    while (stack.length > 0 || cur !== null) {
-        while (cur !== null) {
+    while (stack.length || cur) {
+        while (cur) {
             result.push(cur.val);
             stack.push(cur);
             cur = cur.left;
         }
-        if (stack.length > 0) {
+        if (stack.length) {
             cur = stack.pop();
             cur = cur.right;
         }
