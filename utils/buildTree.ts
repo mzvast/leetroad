@@ -7,13 +7,13 @@ export function buildTree(arr) {
     const q = [root]; // 处理过的节点
     for (let i = 1; i < arr.length; ) {
         const cur = q.shift();
-        if (arr[i]) {
+        if (typeof arr[i] === 'number') {
             cur.left = new TreeNode(arr[i]);
             q.push(cur.left);
         }
         i++;
 
-        if (arr[i]) {
+        if (typeof arr[i] === 'number') {
             cur.right = new TreeNode(arr[i]);
             q.push(cur.right);
         }
