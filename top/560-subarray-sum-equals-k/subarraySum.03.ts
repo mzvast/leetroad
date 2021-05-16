@@ -31,8 +31,7 @@ var subarraySum = function (nums, k) {
 
         ans += sumCountMap.get(cur_sum - k) || 0;
 
-        const cur_sum_count = sumCountMap.get(cur_sum) || 0;
-        sumCountMap.set(cur_sum, cur_sum_count + 1);
+        sumCountMap.set(cur_sum, (sumCountMap.get(cur_sum) || 0) + 1);
     }
     // console.log('sumCountMap', sumCountMap);
 
