@@ -5,8 +5,13 @@
  */
 //  https://zxi.mytechroad.com/blog/dynamic-programming/leetcode-1218-longest-arithmetic-subsequence-of-given-difference/
 // [..., x-2d, x-d, x, ...]
-//  dp[i] := max length of sequence ends with x
-//  dp[x] = max(0, dp[x – diff]) + 1
+//定义  dp[x] := length of Longest Arithmetic Subsequence sequence ends with x
+
+//状态转移
+// dp[x] = dp[x-diff] + 1, if x-d 存在
+//                       1, 不存在
+
+//  ans = max(dp)
 
 //  Time complexity: O(n)
 //  Space complexity: O(n)
