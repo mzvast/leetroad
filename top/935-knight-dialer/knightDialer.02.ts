@@ -7,7 +7,7 @@ var knightDialer = function (n) {
     // dp[0][i][j] = 1 对于每次放下都是1
     // ans = sum{dp[n][i][j]} 对于每个位置i,j
 
-    const dp = Array(n)
+    const dp = Array(2)
         .fill(0)
         .map(() =>
             Array(4)
@@ -64,44 +64,25 @@ var knightDialer = function (n) {
     for (let k = 1; k < n; k++) {
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 3; j++) {
-                // dp[k][i][j] =
+                dp[1][i][j] = 0;
                 if (!isInArea(i, j)) continue;
                 for (let option of options) {
                     const [_i, _j] = [i - option.x, j - option.y];
                     if (isInArea(_i, _j)) {
-                        dp[k][i][j] = mod(dp[k][i][j] + dp[k - 1][_i][_j]);
+                        dp[1][i][j] = mod(dp[1][i][j] + dp[0][_i][_j]);
                     }
                 }
-                // // dp[k][i][j] = dp[k - 1][i][j]
-                // if (isInArea(i - 1, j)) {
-                //     // console.log(`上-${i},${j}`, dp[k - 1][i - 1][j])
-                //     dp[k][i][j] = dp[k][i][j] + dp[k - 1][i - 1][j];
-                // }
-                // if (isInArea(i + 1, j)) {
-                //     // console.log(`下-${i},${j}`, dp[k - 1][i + 1][j])
-                //     dp[k][i][j] = dp[k][i][j] + dp[k - 1][i + 1][j];
-                // }
-                // if (isInArea(i, j - 1)) {
-                //     // console.log(`左-${i},${j}`, dp[k - 1][i][j - 1])
-                //     dp[k][i][j] = dp[k][i][j] + dp[k - 1][i][j - 1];
-                // }
-                // if (isInArea(i, j + 1)) {
-                //     // console.log(`右-${i},${j}`, dp[k - 1][i][j + 1])
-                //     dp[k][i][j] = dp[k][i][j] + dp[k - 1][i][j + 1];
-                // }
             }
         }
+        [dp[0], dp[1]] = [dp[1], dp[0]];
     }
-    // for (let k = 0; k < n; k++) {
-    //     console.log(dp[k])
-    // }
 
     let sum = 0;
     for (let i = 0; i < 4; i++) {
         for (let j = 0; j < 3; j++) {
             if (isInArea(i, j)) {
                 // console.log(i, j)
-                sum = mod(sum + dp[n - 1][i][j]);
+                sum = mod(sum + dp[0][i][j]);
             }
         }
     }
