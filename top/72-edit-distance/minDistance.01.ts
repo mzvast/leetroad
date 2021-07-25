@@ -16,16 +16,17 @@ var minDistance = function (word1, word2) {
         }
         if (i === -1) return j + 1; // 一个走完，返回另一个剩下的长度
         if (j === -1) return i + 1;
+        let res;
         if (word1[i] === word2[j]) {
-            return dp(i - 1, j - 1);
+            res = dp(i - 1, j - 1);
         } else {
-            const res = Math.min(
+            res = Math.min(
                 dp(i, j - 1) + 1, // insert
                 dp(i - 1, j) + 1, // delete
                 dp(i - 1, j - 1) + 1 // replace
             );
-            memo.set(key, res);
-            return res;
         }
+        memo.set(key, res);
+        return res;
     }
 };
