@@ -4,8 +4,8 @@
  * @return {number}
  */
 var videoStitching = function (clips, time) {
-    // dp[i] := 覆盖[0,i)所需的做少子区间的数量
-    // dp[i] = min{dp[a[j]]}+1, (a[j]<i<=b[j])
+    // dp[i] := 覆盖[0,i)所需的最少子区间的数量
+    // dp[i] = min{dp[a]}+1, (a<i<=b) ，对于任意一个子区间[a,b)
 
     const dp = Array(time + 1).fill(Infinity);
     dp[0] = 0;
