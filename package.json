@@ -1,8 +1,0 @@
-{
-  "name": "leetroad",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:mzvast/leetroad.git",
-  "author": "mzvast <mzvast@gmail.com>",
-  "license": "MIT"
-}
