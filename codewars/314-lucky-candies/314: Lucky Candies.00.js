@@ -27,15 +27,7 @@ function luckyCandies(prizes, k) {
         .map(() => Array(sum + 1).fill(false));
 
     // base case
-    // dp[0][..] = true, dp[..][0] = true
     dp[0][0] = true;
-    //     for (let j = 0; j <= sum; j++) {
-    //         dp[0][j] = true;
-    //     }
-
-    //     for (let i = 0; i <= n; i++) {
-    //         dp[i][0] = true;
-    //     }
 
     for (let i = 1; i <= n; i++) {
         for (let j = 0; j <= sum; j++) {
@@ -74,3 +66,4 @@ test([10, 20, 30, 40, 50], 10, 150);
 test([50, 40, 30, 20, 10], 9, 90);
 test(Array(15).fill(1), 8, 8);
 test([5000000, 4000000, 3000000, 2000000, 1000000], 9, 9000000);
+// todo: timeout for large input
