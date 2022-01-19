@@ -38,7 +38,7 @@ function luckyCandies(prizes, k) {
     //     }
 
     for (let i = 1; i <= n; i++) {
-        for (let j = 1; j <= sum; j++) {
+        for (let j = 0; j <= sum; j++) {
             if (j - prizes[i - 1] >= 0) {
                 dp[i][j] = dp[i - 1][j] || dp[i - 1][j - prizes[i - 1]];
             } else {
@@ -46,8 +46,6 @@ function luckyCandies(prizes, k) {
             }
         }
     }
-
-    console.log(dp);
 
     // 找true的最大j
     for (let i = n; i > 0; i--) {
@@ -69,10 +67,10 @@ const test = (a, b, c) => {
     return ans;
 };
 
-// test([1,2,3,4,5], 5, 15);
-test([1,2,3,4,5], 7, 14);
-// test([1,2,3,4,5], 8, 8);
-// test([10,20,30,40,50], 10, 150);
-// test([50,40,30,20,10], 9, 90);
-// test(Array(15).fill(1), 8, 8);
-// test([5000000,4000000,3000000,2000000,1000000], 9, 9000000);
+test([1, 2, 3, 4, 5], 5, 15);
+test([1, 2, 3, 4, 5], 7, 14);
+test([1, 2, 3, 4, 5], 8, 8);
+test([10, 20, 30, 40, 50], 10, 150);
+test([50, 40, 30, 20, 10], 9, 90);
+test(Array(15).fill(1), 8, 8);
+test([5000000, 4000000, 3000000, 2000000, 1000000], 9, 9000000);
