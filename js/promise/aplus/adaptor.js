@@ -121,6 +121,46 @@ function resolvePromise(promise2, x, resolve, reject) {
     }
 }
 
+Promise.resolve = function (value) {
+    return new Promise((resolve, reject) => {
+        resolve(value);
+    });
+};
+
+Promise.reject = function (reason) {
+    return new Promise((resolve, reject) => {
+        reject(reason);
+    });
+};
+
+Promise.race = function (promises) {
+    return new Promise((resolve, reject) => {
+        for (let i = 0; i < promises.length; i++) {
+            promises[i].then(resolve, reject);
+        }
+    });
+};
+
+Promise.all = function (promises) {
+    let arr = [];
+    let i = 0;
+
+    return new Promise((resolve, reject) => {
+        function processData(index, data) {
+            arr[index] = data;
+            i++;
+            if (i === promises.length) {
+                resolve(arr);
+            }
+        }
+        for (let i = 0; i < promises.length; i++) {
+            promises[i].then((data) => {
+                processData(i, data);
+            }, reject);
+        }
+    });
+};
+
 // export
 
 Promise.defer = Promise.deferred = function () {
