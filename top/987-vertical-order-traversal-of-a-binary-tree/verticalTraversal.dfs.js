@@ -12,40 +12,33 @@
  */
 
 var verticalTraversal = function (root) {
-    //                         x，     y，      val
-    const h = new Map(); //  < number, [[number, number]]>
-
-    let left = (right = 0); //左右极限
-    dfs(root, 0, 0);
+    const h = new Map(); // x,[y,val]
+    let min_x = (max_x = 0);
     const ans = [];
+    dfs(root, 0, 0);
 
-    for (let i = left; i <= right; i++) {
+    for (let i = min_x; i <= max_x; i++) {
         const list = h.get(i);
         if (!list) continue;
-        // 对list内容进行排序
-        list.sort(([y1, v1], [y2, v2]) => {
-            if (y1 < y2) return -1;
-            if (y1 === y2 && v1 < v2) return -1;
-            return 1;
-        });
-
+        list.sort(([y1, v1], [y2, v2]) =>
+            y1 < y2 || (y1 === y2 && v1 < v2) ? -1 : 1
+        );
         const temp = [];
-        for (let item of list) {
-            temp.push(item[1]);
+        for (let x of list) {
+            temp.push(x[1]);
         }
         ans.push(temp);
     }
     return ans;
 
-    function dfs(node, x, y) {
-        if (!node) return;
+    function dfs(root, x, y) {
+        if (!root) return;
         const v = h.get(x) || [];
-        v.push([y, node.val]);
-        // console.log('set:', x, y, v);
+        v.push([y, root.val]);
         h.set(x, v);
-        left = Math.min(left, x);
-        right = Math.max(right, x);
-        dfs(node.left, x - 1, y + 1);
-        dfs(node.right, x + 1, y + 1);
+        min_x = Math.min(min_x, x);
+        max_x = Math.max(max_x, x);
+        dfs(root.left, x - 1, y + 1);
+        dfs(root.right, x + 1, y + 1);
     }
 };
