@@ -8,6 +8,7 @@ var verifyPreorder = function (preorder) {
     return judge(0, preorder.length);
 
     // [root,left...,right...]
+    // [l,r) 为什么开区间?? todo:
     function judge(l, r) {
         if (r - l < 1) return true;
         let idx = l + 1;
