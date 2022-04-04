@@ -1,3 +1,6 @@
+## quickSort
+
+```js
 function quickSort(nums) {
     const n = nums.length;
 
@@ -34,3 +37,4 @@ function quickSort(nums) {
 const nums = [5, 1, 3, 2, 4, 100];
 quickSort(nums);
 console.log(nums);
+```

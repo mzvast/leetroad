@@ -1,5 +1,5 @@
-// 基数排序
-
+## 基数排序
+```js
 function radixSort(arr) {
     const n = arr.length;
 
@@ -27,3 +27,4 @@ const arr =[ 862126209, 494767408 ]
 
 console.log(radixSort(arr)); // [ 1, 1, 3, 5 ]
 
+```

@@ -1,3 +1,7 @@
+## MinHeap
+
+
+```js
 class MinHeap {
     constructor() {
         this.data = [null];
@@ -94,3 +98,5 @@ console.log('h::', h.data);
 while (n--) {
     console.log('out::', h.remove()); // 'h.data', h.data, 'size::', h.size());
 }
+
+```

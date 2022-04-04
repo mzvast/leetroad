@@ -1,3 +1,22 @@
+## UnionSet
+
+```js
+// 竞赛
+class UnionSet {
+    constructor(n) {
+        this.fa = Array(n)
+            .fill()
+            .map((_, idx) => idx);
+    }
+    get(x) {
+        return (this.fa[x] = this.fa[x] === x ? x : this.get(this.fa[x]));
+    }
+
+    merge(a, b) {
+        this.fa[this.get(a)] = this.get(b);
+    }
+}
+// 常规
 class UnionSet {
     constructor(n) {
         this.fa = Array(n)
@@ -18,3 +37,4 @@ class UnionSet {
         this.fa[ra] = rb;
     }
 }
+```
