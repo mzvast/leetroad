@@ -1,4 +1,4 @@
-## 基数排序
+## radixSort
 ```js
 function radixSort(arr) {
     const n = arr.length;
