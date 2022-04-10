@@ -33,6 +33,7 @@ nums 是一个非递减数组
 %
 
 ```js
+// 二分
 /**
  * @param {number[]} nums
  * @param {number} target
@@ -47,33 +48,20 @@ function binarySearch01(nums, target) {
     }
     // console.log('hhh', head, tail);
     for (let i = head; i <= tail; i++) {
-        if (nums[i] === target) return i;
-    }
-
-    return -1;
-}
-function binarySearch02(nums, target) {
-    let head = 0, tail = nums.length - 1, mid;
-    while (tail - head > 3) {
-        mid = (head + tail) >> 1;
-        if (nums[mid] >= target) tail = mid;
-        else head = mid + 1;
-    }
-    // console.log('hhh', head, tail);
-    for (let i = head; i <= tail; i++) {
         if (nums[i] >= target) return i;
     }
 
-    return nums.length;
+    return nums.length; // 虚拟尾
 }
+
 var searchRange = function (nums, target) {
     // 起始位置 ==target
     // 结束位置 >=target+1的前一个位置
 
-    const a1 = binarySearch01(nums, target);
-    if (a1 === -1) return [-1, -1];
-    const a2 = binarySearch02(nums, target + 1) - 1;
-    return [a1, a2]
+    const a = binarySearch01(nums, target);
+    if (a === nums.length || nums[a] !== target) return [-1, -1];
+    const b = binarySearch01(nums, target + 1) - 1;
+    return [a, b]
 
 
 };

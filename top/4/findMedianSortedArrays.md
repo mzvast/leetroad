@@ -64,10 +64,10 @@ var findMedianSortedArrays = function (nums1, nums2) {
 
         // compare 
         if (nums1[i + a - 1] <= nums2[j + b - 1]) {
-            // a所在的位置及之前的位置属于前k/2，扣除
+            // a所在的位置及之前的位置属于前k个中的a个，扣除
             return findK(i + a - 1 + 1, j, k - a);
         }
-        // b所在的位置及其之前的位置属于前k/2，扣除
+        // b所在的位置及其之前的位置属于前k个中的b个，扣除
         return findK(i, j + b - 1 + 1, k - b);
 
 
