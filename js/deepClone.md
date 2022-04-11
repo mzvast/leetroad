@@ -1,12 +1,15 @@
+## deepClone
+```js
 function deepClone(obj) {
-    let newObj = obj instanceof Array ? [] : {};
+    const ans = obj instanceof Array ? [] : {};
     for (let key in obj) {
-        newObj[key] =
+        ans[key] =
             typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key];
     }
-    return newObj;
+    return ans;
 }
 const a = {a: {b: [1, 2, 3]}};
 console.log(deepClone(a));
 const b = [1, 2, 3];
 console.log(deepClone(b));
+```

@@ -1,3 +1,5 @@
+## 实现bind方法
+```js
 Function.prototype.bind = function (obj, ...args) {
     const fn = this;
     const bound = function (...moreArgs) {
@@ -19,3 +21,4 @@ function test(a, b, c) {
 const fn = test.bind(this, 1);
 
 console.log(fn(2, 3));
+```
