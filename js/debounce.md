@@ -1,3 +1,5 @@
+## 防抖debounce
+```js
 function debounce(handler, delay) {
     let timer = null;
     return function debounced(...args) {
@@ -14,4 +16,4 @@ const f = debounce((v) => console.log(v), 100);
 f(1);
 f(2);
 f(3);
-
+```
