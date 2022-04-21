@@ -1,3 +1,6 @@
+## 实现EventEmitter
+
+```js
 class EventEmitter {
     constructor() {
         this.events = {}; // key=>listeners Array
@@ -60,3 +63,4 @@ const ev = new EventEmitter();
 ev.once('log', log);
 ev.emit('log',111)
 ev.emit('log',222)
+```

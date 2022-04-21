@@ -53,7 +53,7 @@ var maxSumMinProduct = function (nums) {
     const n = nums.length;
     const l = Array(n).fill(-1),
         r = Array(n).fill(n),
-        s = [];// 单调递减栈
+        s = [];// 单调递增栈
     for (let i = 0; i < n; i++) {
         while (s.length && nums[i] <= nums[s[s.length - 1]]) {
             r[s[s.length - 1]] = i;
@@ -65,7 +65,7 @@ var maxSumMinProduct = function (nums) {
 
     // 前缀和
     const prefixSum = Array(n + 1).fill(0);// Si,0<=i<=n
-    for (let i = 1; i <= n; i++) prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
+    for (let i = 0; i < n; i++) prefixSum[i + 1] = prefixSum[i] + nums[i];
 
     let ans = 0n; // 求最大值
     for (let i = 0; i < n; i++) {
