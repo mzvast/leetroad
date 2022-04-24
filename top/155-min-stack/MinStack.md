@@ -43,7 +43,7 @@ push, pop, top, and getMin最多被调用 3 * 104 次
 
 var MinStack = function () {
     this.stack = [];
-    this.min_s = []; // 栈顶维护最小值，与push/pop同步
+    this.min_s = []; // 单调递减栈, 栈顶维护最小值，与push/pop同步
 };
 
 /** 
