@@ -24,6 +24,38 @@ n == mat[i].length
 -105 <= mat[i][j] <= 105
 ```
 %
+
+```js
+// hashmap 对角线通用做法
+/**
+ * @param {number[][]} mat
+ * @return {number[]}
+ */
+var findDiagonalOrder = function (mat) {
+    // hashmap
+
+    const ans = [];
+    const h = new Map(); // i+j=>[];
+
+    for (let i = 0; i < mat.length; i++) {
+        for (let j = 0; j < mat[0].length; j++) {
+            if (!h.has(i + j)) h.set(i + j, []);
+            h.get(i + j).push(mat[i][j]);
+        }
+    }
+
+    for (let i = 0; i < h.size; i++) {
+        if (i % 2 === 0) {
+            ans.push(...h.get(i).reverse());
+        } else {
+            ans.push(...h.get(i));
+        }
+    }
+
+    return ans;
+};
+```
+
 ```js
 /**
  * @param {number[][]} mat
