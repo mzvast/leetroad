@@ -28,7 +28,7 @@
  * @return {number}
  */
 var findLength = function (nums1, nums2) {
-    // dp[i][j] := 第i、j个数字位置结尾的最长子数组的长度
+    // dp[i][j] := nums1[0..i] nums2[0..j] 的LCS
     // dp[i][j] = 1+dp[i-1][j-1] if nums1[i-1]===nums2[j-1]
     //             0
     // ans = max(dp[i][j])

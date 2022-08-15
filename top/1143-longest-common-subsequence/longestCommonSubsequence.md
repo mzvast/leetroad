@@ -37,6 +37,8 @@ text1 和 text2 仅由小写英文字符组成。
 
 %
 ```js
+// 最长公共子串和最长公共子序列对比
+// https://writings.sh/post/algorithm-longest-common-substring-and-longest-common-subsequence
 /**
  * @param {string} text1
  * @param {string} text2
