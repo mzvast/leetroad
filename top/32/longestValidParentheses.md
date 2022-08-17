@@ -1,8 +1,9 @@
 ## 32. 最长有效括号
+
 ```
 给你一个只包含 '(' 和 ')' 的字符串，找出最长有效（格式正确且连续）括号子串的长度。
 
- 
+
 
 示例 1：
 
@@ -18,7 +19,7 @@
 
 输入：s = ""
 输出：0
- 
+
 
 提示：
 
@@ -30,29 +31,34 @@ s[i] 为 '(' 或 ')'
 
 ```js
 // stack
+// https://www.youtube.com/watch?v=r0-zx5ejdq0
+
 /**
  * @param {string} s
  * @return {number}
  */
 var longestValidParentheses = function (s) {
-    // https://www.youtube.com/watch?v=r0-zx5ejdq0
-    const n = s.length;
-    // 012345678
-    // )()())())
-    //
-    let ans = 0;
-    const stack = [-1]; // 栈底部是第一个没有匹配的右括号的下标
+    // ")()()))()())"
 
+    const stack = [-1]; // 栈顶保存最后一个没有匹配到的右括号的下标
+
+    const n = s.length;
+
+    let ans = 0;
     for (let i = 0; i < n; i++) {
-        const top = stack[stack.length - 1];
-        if (s[top] === '(' && s[i] === ')') {
+        if (s[top()] === '(' && s[i] === ')') {
             stack.pop();
-            const newTop = stack[stack.length - 1];
-            ans = Math.max(ans, i - newTop);
+            // update ans
+            ans = Math.max(ans, i - top());
         } else {
             stack.push(i);
         }
     }
+
     return ans;
+
+    function top() {
+        return stack[stack.length - 1];
+    }
 };
 ```
