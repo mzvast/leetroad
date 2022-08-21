@@ -1,5 +1,7 @@
 {
 	"docwriter.language": "Chinese",
 	"docwriter.style": "JSDoc",
-	"docwriter.progress.trackFunctions": true
+	"docwriter.progress.trackFunctions": true,
+	"editor.tabCompletion": "on",
+	"diffEditor.codeLens": true
 }
