@@ -85,16 +85,22 @@ var findWords = function (board, words) {
 
     // 搜索字母i,j是否在node上存在
     function dfs(i, j, node) {
+        if (node?.word) ans.add(node.word);
+
         if (i < 0 || i >= m || j < 0 || j >= n || !node || !node.next[board[i][j]] || visited[i][j]) return;
 
+
+        // select
         visited[i][j] = true;
-        if (node.next[board[i][j]].word) ans.add(node.next[board[i][j]].word);
+
+        // bt
 
         dfs(i + 1, j, node.next[board[i][j]]);
         dfs(i - 1, j, node.next[board[i][j]]);
         dfs(i, j + 1, node.next[board[i][j]]);
         dfs(i, j - 1, node.next[board[i][j]]);
 
+        // unselect
         visited[i][j] = false;
     }
 };
