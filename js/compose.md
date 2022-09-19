@@ -23,12 +23,16 @@ console.log(a(1)); // 1+4+3+2+1=11
 %
 
 ```js
-// ans
+// 用reduceRight
+function compose(...funcs) {
+    return (initVal) => funcs.reduceRight((x, f) => f(x), initVal);
+} 
+// reduce
 function compose(...funcs) {
     return funcs.reduce(
-        (pre, cur) =>
+        (a, b) =>
             (...args) =>
-                pre(cur(...args))
+                a(b(...args))
     );
 }
 

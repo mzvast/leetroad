@@ -22,15 +22,18 @@ console.log(a(1)); // 1+4+3+2+1=11
 
 // `compose(f, g, h)` is identical to doing
 //  `(...args) => f(g(h(...args)))`.
-// ans
+// reduceRight
 function compose(...funcs) {
-    return funcs.reduce(
-        (pre, cur) =>
-            (...args) =>
-                pre(cur(...args))
-    );
+    return (initVal) => funcs.reduceRight((x, f) => f(x), initVal);
 }
-
+// reduce
+// function compose(...funcs) {
+//     return funcs.reduce(
+//         (a, b) =>
+//             (...args) =>
+//                 a(b(...args))
+//     );
+// }
 
 //pre: (...args)=>fn1(fn2(...args))
 // (...args) => ((...t)=>fn1(fn2(...t)))(fn3(...args))
