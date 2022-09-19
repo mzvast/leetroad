@@ -6,15 +6,15 @@ function quicksort(nums) {
     function sort(l, r) {
         if (l >= r) return;
         const mid = partition(l, r);
-        sort(l, mid - 1);
-        sort(mid + 1, r);
+        partition(l, mid - 1);
+        partition(mid + 1, r);
     }
 
     function partition(l, r) {
-        let v = nums[l];
-        let i = l,
+        let v = nums[l],
+            i = l,
             j = r + 1;
-        while (i < j) {
+        while (true) {
             while (nums[++i] < v) if (i > r) break;
             while (nums[--j] > v) if (j < l) break;
             if (i >= j) break;
