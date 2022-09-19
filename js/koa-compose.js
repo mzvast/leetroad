@@ -36,20 +36,17 @@ fn({cnt: 0});
 function compose(middleware) {
     return function (context, next) {
         dispatch(0);
+        // 触发第i个中间件
         function dispatch(i) {
             let fn = middleware[i];
             if (i === middleware.length) fn = next;
             if (!fn) return Promise.resolve();
 
-            try {
-                return Promise.resolve(
-                    fn(context, function () {
-                        return dispatch(i + 1);
-                    })
-                );
-            } catch (error) {
-                return Promise.reject(error);
-            }
+            return Promise.resolve(
+                fn(context, function () {
+                    dispatch(i + 1);
+                })
+            );
         }
     };
 }
