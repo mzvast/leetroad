@@ -5,5 +5,3 @@ new Promise((resolve) => {
 }).then((t) => console.log(t));
 
 console.log(3);
-
-// 3,2,1
