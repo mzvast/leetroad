@@ -13,4 +13,10 @@ var B = function () {};
 var a = new B();
 console.log(instanceOf(a, B));
 
-// [F]<->F.prototype<-[inst]
+/** 
+ * 实例                         原型                            构造函数
+ * 【inst】----.__proto__--->【prototype】 <----.prototype---- 【F】
+ *                                         ----.constructor-->
+ *
+ *
+ * */
