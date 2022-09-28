@@ -6,4 +6,4 @@ function myNew(ctor, ...args) {
     return res ?? obj;
 }
 
-// F<->F.prototype<-inst
+// inst -> proto <--> ctor
