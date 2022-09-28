@@ -25,8 +25,12 @@ console.log(a(1)); // 1+4+3+2+1=11
 ```js
 // 用reduceRight
 function compose(...funcs) {
-    return (initVal) => funcs.reduceRight((x, f) => f(x), initVal);
-} 
+    return function (...args) {
+        const initVal = funcs[funcs.length - 1](...args);
+        const leftFuncs = funcs.slice(0, -1);
+        return leftFuncs.reduceRight((x, f) => f(x), initVal);
+    };
+}
 // reduce
 function compose(...funcs) {
     return funcs.reduce(

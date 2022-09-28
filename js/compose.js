@@ -23,8 +23,13 @@ console.log(a(1)); // 1+4+3+2+1=11
 // `compose(f, g, h)` is identical to doing
 //  `(...args) => f(g(h(...args)))`.
 // reduceRight
+// https://sourcegraph.com/github.com/WaterfoxCo/Waterfox/-/blob/devtools/shared/ThreadSafeDevToolsUtils.js?L222:16
 function compose(...funcs) {
-    return (initVal) => funcs.reduceRight((x, f) => f(x), initVal);
+    return function (...args) {
+        const initVal = funcs[funcs.length - 1](...args);
+        const leftFuncs = funcs.slice(0, -1);
+        return leftFuncs.reduceRight((x, f) => f(x), initVal);
+    };
 }
 // reduce
 // function compose(...funcs) {
