@@ -8,19 +8,15 @@
  *   4. newAst => generator   => output
  */
 
-const {tokenizer} = require('./tokenizer');
-const {parser} = require('./parser');
-const {transformer} = require('./transformer');
-const {codeGenerator} = require('./codeGenerator');
+import {codeGenerator} from "./codeGenerator";
+import {parser} from "./parser";
+import {tokenizer} from "./tokenizer";
+import {transformer} from "./transformer";
 
-function compiler(input) {
+export function compiler(input) {
     const tokens = tokenizer(input);
     const ast = parser(tokens);
     const newAst = transformer(ast);
     const output = codeGenerator(newAst);
     return output;
 }
-
-module.exports = {
-    compiler,
-};

@@ -66,7 +66,7 @@ function traverser(ast, visitor) {
     traverseNode(ast, null);
 }
 
-function transformer(ast) {
+export function transformer(ast) {
     let newAst = {
         type: 'Program',
         body: [],
@@ -123,6 +123,3 @@ function transformer(ast) {
 
 
 
-module.exports = {
-    transformer,
-}

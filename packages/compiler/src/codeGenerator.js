@@ -34,8 +34,7 @@
  * ----------------------------------------------------------------------------
  */
 
-// const output = 'add(2, subtract(4, 2));';
-function codeGenerator(node) {
+export function codeGenerator(node) {
     switch (node.type) {
         case 'Program':
             return node.body.map(codeGenerator).join('\n');
@@ -58,11 +57,3 @@ function codeGenerator(node) {
             throw new TypeError(node.type);
     }
 }
-
-
-
-
-
-module.exports = {
-    codeGenerator,
-};

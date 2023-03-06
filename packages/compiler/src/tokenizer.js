@@ -1,4 +1,4 @@
-function tokenizer(input) {
+export function tokenizer(input) {
     let current = 0;
     let tokens = [];
     while (current < input.length) {
@@ -34,7 +34,7 @@ function tokenizer(input) {
         if (char === '"') {
             let value = '';
             char = input[++current]; // start from next
-            while (input[char] !== '"') {
+            while (char !== '"') {
                 value = value + char;
                 char = input[++current];
             }
@@ -65,7 +65,3 @@ function tokenizer(input) {
 }
 
 
-
-module.exports = {
-    tokenizer,
-};

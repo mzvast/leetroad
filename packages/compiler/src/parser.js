@@ -1,4 +1,4 @@
-function parser(tokens) {
+export function parser(tokens) {
     let current = 0;
     let ast = {
         type: 'Program',
@@ -49,10 +49,4 @@ function parser(tokens) {
         ast.body.push(walk());
     }
     return ast;
-}
-
-
-
-module.exports = {
-    parser
 }
