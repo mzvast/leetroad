@@ -56,15 +56,50 @@ describe('parser works', () => {
         ]);
     });
 
-    //     test('should work math', () => {
-    //         const tokens = lexer(`let x = 4;`);
-    //         const ast = parser(tokens);
-    //         console.log(
-    //             '🚀 ~ file: parser.test.ts:59 ~ test ~ ast',
-    //             JSON.stringify(ast, null, 2)
-    //         );
-    //         // expect(ast).toEqual([
-    //         // 	{type: 'variable-declaration', name: 'x', varType: 'let'},
-    //         // ])
-    //     });
+    test('should work math', () => {
+        const tokens = lexer(`let x = 2*(3+4);`);
+        const ast = parser(tokens);
+
+        expect(ast).toEqual([
+            {
+                type: 'variable-declaration',
+                name: 'x',
+                varType: 'let',
+            },
+            {
+                type: 'function-call',
+                function: '=',
+                args: [
+                    {
+                        type: 'identifier',
+                        name: 'x',
+                    },
+                    {
+                        type: 'function-call',
+                        function: '*',
+                        args: [
+                            {
+                                type: 'number',
+                                value: 2,
+                            },
+                            {
+                                type: 'function-call',
+                                function: '+',
+                                args: [
+                                    {
+                                        type: 'number',
+                                        value: 3,
+                                    },
+                                    {
+                                        type: 'number',
+                                        value: 4,
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            },
+        ]);
+    });
 });

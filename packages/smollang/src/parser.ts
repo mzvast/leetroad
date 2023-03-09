@@ -243,7 +243,7 @@ const operatorPrecidence = (operator: string): number => {
         '/': 2,
         '^': 3,
         '.': 4,
-        '=': 5,
+        '=': 0,
         '=>': 5,
     };
     return precidences[operator];
