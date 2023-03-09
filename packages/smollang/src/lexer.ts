@@ -7,7 +7,9 @@ export function lexer(smol: string) {
 
     while (chars.length > 0) {
         const char = chars.shift();
-        const next = chars[0];
+        const next = chars[0]; // peek
+
+        if (char == undefined) throw new Error('invalid char');
 
         // terminator
         if (char === ';') {
@@ -17,10 +19,110 @@ export function lexer(smol: string) {
             });
             continue;
         }
+
+        if (isLetter(char)) {
+            // 可能是keyword、bool、operator、identifier
+            const word = `${char}${extractWord(chars)}`;
+
+            if (isKeyword(word)) {
+                tokens.push({type: 'keyword', value: word});
+                continue;
+            }
+
+            if (isOperator(word)) {
+                tokens.push({type: 'operator', value: word});
+                continue;
+            }
+
+            if (isBool(word)) {
+                tokens.push({type: 'boolean', value: word});
+                continue;
+            }
+
+            tokens.push({type: 'identifier', value: word});
+            continue;
+        }
+
+        // 处理数字
+        if (isNum(char)) {
+            const num = `${char}${extractNum(chars)}`;
+            tokens.push({type: 'number', value: num});
+            continue;
+        }
+        // 负数
+        if (char === '-' && isNum(next!)) {
+            const num = `-${extractNum(chars)}`;
+            tokens.push({type: 'number', value: num});
+            continue;
+        }
+
+        // 字符串
+        if (char === '"') {
+            tokens.push({type: 'string', value: extractString(chars)});
+            continue;
+        }
+
+        // 非字母的操作符
+        if (isOperator(char)) {
+            // 前缀匹配，补全
+            const fullOp = `${char}${extractOperator(chars)}`;
+
+            if (!isOperator(fullOp)) {
+                throw new TypeError(`invalid operator:${fullOp}`);
+            }
+
+            tokens.push({type: 'operator', value: fullOp});
+            continue;
+        }
+
+        if (isWhiteSpace(char)) continue;
+
+        if (isLeftCurly(char)) {
+            tokens.push({type: 'left-curly', value: char});
+            continue;
+        }
+
+        if (isRightCurly(char)) {
+            tokens.push({type: 'right-curly', value: char});
+            continue;
+        }
+
+        if (isPipe(char)) {
+            tokens.push({type: 'pipe', value: char});
+            continue;
+        }
+
+        if (isComma(char)) {
+            tokens.push({type: 'comma', value: char});
+            continue;
+        }
+
+        if (isLeftParen(char)) {
+            tokens.push({type: 'left-paren', value: char});
+            continue;
+        }
+
+        if (isRightParen(char)) {
+            tokens.push({type: 'right-paren', value: char});
+            continue;
+        }
+
+        throw new Error('Unexpected token:' + char);
     }
+
+    return tokens;
 }
 
 // utils
+
+const isWhiteSpace = (char: string) => /\s/.test(char);
+
+const isLeftCurly = (char: string) => char === '{';
+const isRightCurly = (char: string) => char === '}';
+const isPipe = (char: string) => char === '|';
+const isLeftParen = (char: string) => char === '(';
+const isRightParen = (char: string) => char === ')';
+const isComma = (char: string) => char === ',';
 
 const operators = [
     '+',
