@@ -105,12 +105,10 @@ export const parseStatement = (
                     operatorPrecidence(op.value) >=
                     operatorPrecidence(token.value)
                 ) {
-                    const b = output.pop()!;
-                    const a = output.pop()!;
                     output.push({
                         type: 'function-call',
                         function: operator.pop()!.value,
-                        args: [a, b],
+                        args: [output.pop()!, output.pop()!],
                     });
                     continue;
                 }
@@ -166,66 +164,66 @@ export const parseStatement = (
     }
 
     while (operator.length > 0) {
-        const b = output.pop()!;
-        const a = output.pop()!;
         output.push({
             type: 'function-call',
             function: operator.pop()!.value,
-            args: [a, b],
+            args: [output.pop()!, output.pop()!],
         });
     }
 
     return output[0] as Instruction;
 };
 
-// 解析函数调用的参数，
-// a,b,c)
-const parseFnCall = (tokens: Token[]): AST => {
+export const parseFnCall = (tokens: Token[]): AST => {
     const ast: AST = [];
+
     let token = tokens[0];
     while (token.type !== 'right-paren') {
         if (token.type === 'comma') {
             tokens.shift();
         }
+
         ast.push(parseStatement(tokens));
         token = tokens[0];
     }
-    tokens.shift(); // consume )
+    tokens.shift(); // Remove right paren;
 
     return ast;
 };
 
-// 解析函数定义参数
-//  x,y, z|
-const parseArgs = (tokens: Token[]) => {
+export const parseArgs = (tokens: Token[]): string[] => {
     const args: string[] = [];
+
     let token = tokens.shift()!;
     while (token.type !== 'pipe') {
         if (token.type === 'comma') {
-            tokens.shift();
+            token = tokens.shift()!;
             continue;
         }
+
         args.push(token.value);
         token = tokens.shift()!;
     }
+
     return args;
 };
 
-export function parser(tokens: Token[]): AST {
+export const parser = (tokens: Token[]): AST => {
     const ast: AST = [];
+
     while (tokens.length > 0) {
         if (tokens[0].type === 'right-curly') {
             tokens.shift();
             break;
         }
+
         ast.push(parseStatement(tokens));
     }
 
     return ast;
-}
+};
 
-// 操作符优先级
-const operatorPrecidence = (operator: string): number => {
+export const operatorPrecidence = (operator: string): number => {
     const precidences: Record<string, number> = {
         and: 0,
         or: 0,
