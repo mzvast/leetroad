@@ -1,4 +1,4 @@
-import {AST, Instruction, Token} from './types';
+import {AST, Instruction, Token} from './definitions';
 
 export const parseStatement = (
     tokens: Token[],
@@ -202,7 +202,7 @@ const parseArgs = (tokens: Token[]) => {
     let token = tokens.shift()!;
     while (token.type !== 'pipe') {
         if (token.type === 'comma') {
-            tokens.shift();
+            token = tokens.shift()!;
             continue;
         }
         args.push(token.value);
@@ -227,24 +227,24 @@ export function parser(tokens: Token[]): AST {
 // 操作符优先级
 const operatorPrecidence = (operator: string): number => {
     const precidences: Record<string, number> = {
-        and: 0,
-        or: 0,
-        xor: 0,
-        '==': 0,
-        '<': 0,
-        '>': 0,
-        '>=': 0,
-        '<=': 0,
-        '<>': 0,
-        '?': 0,
-        '+': 1,
-        '-': 1,
-        '*': 2,
-        '/': 2,
-        '^': 3,
-        '.': 4,
+        and: 1,
+        or: 1,
+        xor: 1,
+        '==': 2,
+        '<': 2,
+        '>': 2,
+        '>=': 2,
+        '<=': 2,
+        '<>': 2,
+        '?': 2,
+        '+': 2,
+        '-': 2,
+        '*': 3,
+        '/': 3,
+        '^': 4,
+        '.': 5,
         '=': 0,
-        '=>': 5,
+        '=>': 0,
     };
     return precidences[operator];
 };

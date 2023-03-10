@@ -1,6 +1,6 @@
 import {describe, test, it, expect} from 'vitest';
 import {lexer} from './lexer.js';
-import {Token} from './types.js';
+import {Token} from './definitions.js';
 
 describe('lexer works', () => {
     test('number should works', () => {

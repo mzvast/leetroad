@@ -1,4 +1,4 @@
-import {Token} from './types.js';
+import {Token} from './definitions.js';
 
 export function lexer(smol: string) {
     const chars = smol.split('');
@@ -157,9 +157,9 @@ const keywords = [
     'elif',
 ];
 
-const isLetter = (char: string) => /[a-z]/i.test(char);
+const isLetter = (char: string) => /[a-zA-Z]|_/g.test(char);
 
-const isNum = (char: string) => /[0-9]/.test(char);
+const isNum = (char: string) => /[0-9]/g.test(char);
 
 const isOperator = (str: string) => operators.indexOf(str) > -1;
 

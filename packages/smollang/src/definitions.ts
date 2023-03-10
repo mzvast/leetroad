@@ -102,3 +102,17 @@ export interface SmolIdentifier extends Statement {
     type: 'identifier';
     name: string;
 }
+
+// interpreter返回值
+export interface Value {
+    val: any;
+    isReturn?: boolean;
+}
+
+// 内存字典
+export interface Mem {
+    [key: string]: {
+        memType: 'let' | 'var';
+        val: Value | undefined;
+    };
+}
