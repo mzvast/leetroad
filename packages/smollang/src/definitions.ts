@@ -30,6 +30,8 @@ export type Instruction =
     | SmolBool
     | VariableDeclaration
     | IfStatement
+    | BreakStatement
+    | ContinueStatement
     | ReturnStatement
     | WhileStatement
     | SmolIdentifier;
@@ -107,6 +109,8 @@ export interface SmolIdentifier extends Statement {
 export interface Value {
     val: any;
     isReturn?: boolean;
+    isBreak?: boolean;
+    isContinue?: boolean;
 }
 
 // 内存字典
@@ -115,4 +119,15 @@ export interface Mem {
         memType: 'let' | 'var';
         val: Value | undefined;
     };
+}
+
+// break
+
+export interface BreakStatement extends Statement {
+    type: 'break';
+    exp: AST | Instruction;
+}
+
+export interface ContinueStatement extends Statement {
+    type: 'continue';
 }

@@ -155,6 +155,7 @@ const keywords = [
     'if',
     'else',
     'elif',
+    'while'
 ];
 
 const isLetter = (char: string) => /[a-zA-Z]|_/g.test(char);

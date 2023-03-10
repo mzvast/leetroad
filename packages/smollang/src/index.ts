@@ -11,8 +11,8 @@ export const evaluate = (smol: string) => {
     interpreter(ast, {});
 };
 
-// evaluate(smolBasic);
+evaluate(smolBasic);
 evaluate(smolFib);
 // evaluate(smol2Fib);
-// evaluate(smolEasyTest);
-// evaluate(smolWhile);
+evaluate(smolEasyTest);
+evaluate(smolWhile);

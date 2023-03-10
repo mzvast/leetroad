@@ -77,6 +77,17 @@ export const parseStatement = (
                 continue;
             }
 
+            if (token.value === 'while') {
+                tokens.shift();
+                const condition = parseStatement(tokens, {
+                    type: 'left-curly',
+                    value: '{',
+                });
+                const body = parser(tokens);
+                output.push({type: 'while', condition, body});
+                continue;
+            }
+
             throw new Error(`Unkown keyword: ${token.value}`);
         }
 

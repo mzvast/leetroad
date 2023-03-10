@@ -51,12 +51,27 @@ export function interpreter(instruction: AST | Instruction, mem: Mem): Value {
     if (instruction.type === 'return')
         return {isReturn: true, val: interpreter(instruction.exp, mem).val};
 
+    if (instruction.type === 'break')
+        return {isBreak: true, val: interpreter(instruction.exp, mem).val};
+
+    if (instruction.type === 'continue')
+        return {isContinue: true, val: undefined};
+
     if (instruction.type === 'if') {
         const result = interpreter(instruction.condition, mem);
         if (result.val) {
             return interpreter(instruction.body, {...mem});
         }
         return {val: undefined};
+    }
+
+    if (instruction.type === 'while') {
+        let result: Value = {val: undefined};
+        while (interpreter(instruction.condition, mem).val) {
+            result = interpreter(instruction.body, {...mem});
+            if (result.isBreak) return result;
+        }
+        return result;
     }
 
     if (instruction.type === 'identifier') {
