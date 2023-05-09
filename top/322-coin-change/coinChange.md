@@ -31,9 +31,38 @@
 ```
 
 %
+```js
+// 2d dp
+/**
+ * @param {number[]} coins
+ * @param {number} amount
+ * @return {number}
+ */
+var coinChange = function (coins, amount) {
+    // dp[i][j] := 前i种硬币可以构成j的最少个数
+    // dp[i][j] = min(dp[i-1][j],1+dp[i][j-coins[i-1]])
+
+    const n = coins.length;
+    const dp = Array.from({ length: n + 1 }, () => Array(amount + 1).fill(Infinity));
+    // base case
+    for (let i = 0; i <= n; i++) dp[i][0] = 0;
+
+    for (let i = 1; i <= n; i++) {
+        for (let j = 1; j <= amount; j++) {
+            if (j - coins[i - 1] >= 0) {
+                dp[i][j] = Math.min(dp[i - 1][j], 1 + dp[i][j - coins[i - 1]]);
+            } else {
+                dp[i][j] = dp[i - 1][j];
+            }
+        }
+    }
+
+    return dp[n][amount] === Infinity ? -1 : dp[n][amount];
+};
+```
 
 ```js
-// dp
+// 1d dp
 /**
  * @param {number[]} coins
  * @param {number} amount
