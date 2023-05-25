@@ -31,9 +31,11 @@
  * @return {number}
  */
 var findNumberOfLIS = function (nums) {
-    // dp[i] := 第i个元素构成的LIS
-    // dp[i] = 1+max(dp[j]) (nums[j]<nums[i],0<j<i)
-    // ans 最长的个数
+    // dp[i] := 以第i个元素结尾的LIS长度
+    // cnt[i] := 以第i个元素结尾的LIS个数
+    // dp[i] = 1+max{dp[j]} ,0<j<i 且 nums[j]<nums[i]
+    // cnt[i] = sum{cnt[j]} ,0<j<i 且 nums[j]<nums[i]
+    // ans = sum{cnt[maxLen]}
 
     let ans = 0, maxLen = 0;
 
