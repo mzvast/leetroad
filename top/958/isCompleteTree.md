@@ -44,43 +44,30 @@
  * @return {boolean}
  */
 var isCompleteTree = function (root) {
-    // bfs层序遍历，空节点之后不能有非空节点
+    // BFS
+    // 从上到下，从左到右
 
+    const q = [root];
 
-    const q = [];
-    let isEnd = false; // 第一次遇到null
-    q.push(root);
+    let hasEmpty = false;// 是否出现过空位
+
     while (q.length) {
-        const len = q.length;
-        if (isEnd) {
-            // 已经结束了，最后一层必须全是null
-            for (let i = 0; i < len; i++) {
-                if (q[i] !== null) return false;
-            };
+        const cur = q.shift();
+        if (cur.left) {
+            if (hasEmpty) return false;
+            q.push(cur.left);
+        } else {
+            hasEmpty = true;
         }
 
-        let j = 0;// 第一个null位置
-        for (; j < len && q[j] !== null; j++);
-        if (j < len) isEnd = true;
-
-        if (isEnd) {
-            // 当前层null后面有非空节点
-            for (; j < len && q[j] === null; j++);
-            if (j < len) return false; 
-        }
-
-
-        for (let i = 0; i < len; i++) {
-            const cur = q.shift();
-            if (cur) {
-                q.push(cur.left);
-                q.push(cur.right);
-            }
+        if (cur.right) {
+            if (hasEmpty) return false;
+            q.push(cur.right);
+        } else {
+            hasEmpty = true;
         }
     }
 
     return true;
-
-
 };
 ```
