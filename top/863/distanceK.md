@@ -31,6 +31,70 @@ Node.val 中所有值 不同
 %
 
 ```js
+// HashMap+HashSet+DFS+BFS
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} target
+ * @param {number} k
+ * @return {number[]}
+ */
+var distanceK = function (root, target, k) {
+    // DFS获取所有节点的parentNode
+    // BFS 3方向搜索距离为k
+    // visited去重
+
+    const h = new Map();// node->parentNode
+
+    function dfs(node, parentNode) {
+        if (!node) return;
+        h.set(node, parentNode);
+        dfs(node.left, node);
+        dfs(node.right, node);
+    }
+
+    dfs(root, null);
+
+    const visited = new Set();
+    visited.add(target);
+
+    const q = [[target, 0]];// [node,distance]
+
+    const ans = [];
+    while (q.length) {
+        const [node, distance] = q.shift();
+
+        // update ans
+        if (distance === k) ans.push(node.val);
+
+        if (node.left && !visited.has(node.left)) {
+            visited.add(node.left);
+            q.push([node.left, distance + 1]);
+        }
+
+        if (node.right && !visited.has(node.right)) {
+            visited.add(node.right);
+            q.push([node.right, distance + 1]);
+        }
+
+        const parent = h.get(node);
+        if (parent && !visited.has(parent)) {
+            visited.add(parent);
+            q.push([parent, distance + 1]);
+        }
+    }
+
+    return ans;
+};
+```
+
+```js
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
