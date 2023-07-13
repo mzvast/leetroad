@@ -5,15 +5,13 @@ function quicksort(nums) {
 
     function sort(l, r) {
         if (l >= r) return;
-        const mid = partition(l, r);
-        partition(l, mid - 1);
-        partition(mid + 1, r);
+        const mid = part(l, r);
+        sort(l, mid - 1);
+        sort(mid + 1, r);
     }
 
-    function partition(l, r) {
-        let v = nums[l],
-            i = l,
-            j = r + 1;
+    function part(l, r) {
+        let v = nums[l], i = l, j = r + 1;
         while (true) {
             while (nums[++i] < v) if (i > r) break;
             while (nums[--j] > v) if (j < l) break;
@@ -25,7 +23,7 @@ function quicksort(nums) {
     }
 
     function swap(i, j) {
-        [nums[i], nums[j]] = [nums[j], nums[i]];
+        [nums[i], nums[j]] = [nums[j], nums[i]]
     }
 }
 const arr = [3, 2, 1, 4, 5, 6, 7, 8, 9, 10];

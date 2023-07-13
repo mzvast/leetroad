@@ -20,7 +20,7 @@ function quickSort(nums) {
         while (true) {
             while (nums[++i] < v) if (i > r) break;
             while (nums[--j] > v) if (j < l) break;
-            if (i >= r) break;
+            if (i >= j) break;
             swap(i, j);
         }
         swap(l, j);
