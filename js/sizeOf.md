@@ -1,6 +1,7 @@
-## 实现sizeOf函数，传入一个参数object，计算这个object占用了多少bytes？
+## 实现 sizeOf 函数，传入一个参数 object，计算这个 object 占用了多少 bytes？
 
 %
+
 ```js
 // 对象的key占用空间
 // 相同对象不再占用空间，但key依然要加
@@ -35,13 +36,12 @@ function sizeOfObject(object) {
     let ans = 0;
 
     for (let key in object) {
-        if (typeof object[key] === 'object' && object !== null) {
-            if (visited.has(object[key])) continue;
-            visited.add(object[key]);
-        }
-
         // 计算key
         ans += calculator(key);
+        if (typeof object[key] === 'object') {
+            if (obj[k] === null || visited.has(obj[k])) continue;
+            visited.add(object[key]);
+        }
         // 计算值
         ans += calculator(object[key]);
     }
@@ -49,5 +49,5 @@ function sizeOfObject(object) {
     return ans;
 }
 
-console.log(calculator({a: 111, b: 'cccc'}));
+console.log(sizeOfObject({a: 111, b: 'cccc'}));
 ```
