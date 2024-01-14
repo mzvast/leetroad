@@ -23,5 +23,11 @@ function count_repeated_characters(str) {
     return ans;
 }
 
+function count_repeated_characters2(str) {
+    // 正则
+    const match = str.match(/(.)\1+/g);
+    return match.length ?? 0;
+}
+
 console.log(count_repeated_characters('hellloo') === 2);
 console.log(count_repeated_characters('hell') === 1);
