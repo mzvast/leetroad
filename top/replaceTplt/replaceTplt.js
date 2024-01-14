@@ -1,7 +1,6 @@
 function replace(str, data) {
-    const reg = /\$\{([a-zA-Z]+)\}/g;
-    return str.replace(reg, function (match, $1) {
-        return data[$1];
+    return str.replace(/\$\{(\w+)\}/g, (match, key) => {
+        return data[key] ?? match;
     });
 }
 const ans = replace('${name} is ${age}, ${name} is happy', {
