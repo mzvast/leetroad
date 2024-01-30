@@ -22,5 +22,5 @@ function getResults(s) {
 
 // 2、UnionSet
 
-console.log(getResults('bccaadaazzz')); //3
+console.log(getResults('bccaadaazzz')); // 4
 console.log(getResults('aaabbbcccd')); // 3
