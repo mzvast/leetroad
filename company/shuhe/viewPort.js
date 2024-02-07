@@ -9,7 +9,42 @@ function getVisibleItems(eleInfoList, viewPort) {
     const ymin = viewPort.h,
         ymax = viewPort.h + viewPort.height;
 
-	// todo
+    // 第一个可能可见的位置 h>=ymin 000001111 ---->
+
+    // 最后一个可能可见的位置 h>=ymax 00000111
+
+    const ans = [];
+
+    const startIdx = bs01(0, n - 1, ymin),
+        endIdx = bs01(0, n - 1, ymax);
+
+    for (let i = startIdx; i < endIdx; i++) {
+        if (check(eleInfoList[i])) ans.push(eleInfoList[i]);
+    }
+
+    return ans;
+
+    function check(item) {
+        return item.h >= ymin && item.h + item.height <= ymax;
+    }
+
+    // 000000111111
+    function bs01(l, r, target) {
+        while (l < r) {
+            const mid = (l + r) >> 1;
+            const {h} = eleInfoList[mid];
+
+
+            if (h < target) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+        return r;
+    }
+
+ 
 }
 
 console.log(
